@@ -1,1 +1,3 @@
-print("Hello World")
+import app
+
+app.run_app()

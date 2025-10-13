@@ -1,4 +1,4 @@
 .idea/
-.git/
 .env/
+.DS_Store/
 .DS_Store
