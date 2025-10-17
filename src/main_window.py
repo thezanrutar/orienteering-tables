@@ -18,29 +18,37 @@ class CompetitionTile(QtWidgets.QFrame):
         self.setMinimumSize(200, 150)
         self.setCursor(QtCore.Qt.PointingHandCursor)
         
-        # Set style
+        # Set style with frosty glass effect
         if is_add_button:
             self.setStyleSheet("""
                 CompetitionTile {
-                    background-color: #f0f0f0;
-                    border: 2px dashed #999;
-                    border-radius: 5px;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                        stop:0 rgba(255, 255, 255, 0.12),
+                        stop:1 rgba(255, 255, 255, 0.08));
+                    border: 2px dashed rgba(255, 255, 255, 0.3);
+                    border-radius: 12px;
                 }
                 CompetitionTile:hover {
-                    background-color: #e0e0e0;
-                    border: 2px dashed #666;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                        stop:0 rgba(255, 255, 255, 0.18),
+                        stop:1 rgba(255, 255, 255, 0.12));
+                    border: 2px dashed rgba(100, 180, 255, 0.5);
                 }
             """)
         else:
             self.setStyleSheet("""
                 CompetitionTile {
-                    background-color: white;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                        stop:0 rgba(255, 255, 255, 0.15),
+                        stop:1 rgba(255, 255, 255, 0.1));
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 12px;
                 }
                 CompetitionTile:hover {
-                    background-color: #f9f9f9;
-                    border: 2px solid #666;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                        stop:0 rgba(255, 255, 255, 0.2),
+                        stop:1 rgba(255, 255, 255, 0.15));
+                    border: 1px solid rgba(100, 180, 255, 0.5);
                 }
             """)
         
@@ -53,38 +61,41 @@ class CompetitionTile(QtWidgets.QFrame):
         layout.setSpacing(10)
         
         if self.is_add_button:
-            # Add button tile
+            # Add button tile with icon
             plus_label = QtWidgets.QLabel("+")
             plus_font = plus_label.font()
             plus_font.setPointSize(48)
+            plus_font.setWeight(QtGui.QFont.Light)
             plus_label.setFont(plus_font)
             plus_label.setAlignment(QtCore.Qt.AlignCenter)
-            plus_label.setStyleSheet("color: #999;")
+            plus_label.setStyleSheet("color: rgba(255, 255, 255, 0.6);")
             layout.addWidget(plus_label)
             
             text_label = QtWidgets.QLabel("New Competition")
             text_label.setAlignment(QtCore.Qt.AlignCenter)
-            text_label.setStyleSheet("color: #666;")
+            text_label.setStyleSheet("color: rgba(255, 255, 255, 0.7); font-size: 13px;")
             layout.addWidget(text_label)
         else:
-            # Competition tile
+            # Competition tile with modern styling
             date_label = QtWidgets.QLabel(self.competition['date'])
             date_font = date_label.font()
-            date_font.setPointSize(12)
+            date_font.setPointSize(14)
             date_font.setBold(True)
             date_label.setFont(date_font)
+            date_label.setStyleSheet("color: #64b4ff;")
             layout.addWidget(date_label)
             
             location_label = QtWidgets.QLabel(self.competition['location'])
             location_label.setWordWrap(True)
+            location_label.setStyleSheet("color: #e8eef5; font-size: 13px; margin-top: 5px;")
             layout.addWidget(location_label)
             
             layout.addStretch()
             
-            # Team count
+            # Team count with icon
             team_count = database.get_team_count_by_competition(self.competition['id'])
-            teams_label = QtWidgets.QLabel(f"{team_count} teams")
-            teams_label.setStyleSheet("color: #666;")
+            teams_label = QtWidgets.QLabel(f"👥 {team_count} teams")
+            teams_label.setStyleSheet("color: rgba(255, 255, 255, 0.6); font-size: 12px;")
             layout.addWidget(teams_label)
     
     def mousePressEvent(self, event):
@@ -123,14 +134,16 @@ class MainWindow(QtWidgets.QMainWindow):
     def setup_main_page(self):
         """Setup the main competition grid page."""
         layout = QtWidgets.QVBoxLayout(self.main_page)
-        layout.setContentsMargins(20, 20, 20, 20)
+        layout.setContentsMargins(30, 30, 30, 30)
+        layout.setSpacing(20)
         
-        # Title
-        title = QtWidgets.QLabel("Orienteering Competitions")
+        # Title with modern styling
+        title = QtWidgets.QLabel("🏃 Orienteering Competitions")
         title_font = title.font()
-        title_font.setPointSize(24)
+        title_font.setPointSize(28)
         title_font.setBold(True)
         title.setFont(title_font)
+        title.setStyleSheet("color: #e8eef5; margin-bottom: 10px;")
         layout.addWidget(title)
         
         # Scroll area for competition grid
@@ -141,8 +154,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # Competition grid container
         self.grid_container = QtWidgets.QWidget()
+        self.grid_container.setStyleSheet("background-color: transparent;")
         self.grid_layout = QtWidgets.QGridLayout(self.grid_container)
-        self.grid_layout.setSpacing(15)
+        self.grid_layout.setSpacing(20)
         scroll.setWidget(self.grid_container)
     
     def refresh_competitions(self):

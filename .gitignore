@@ -17,3 +17,4 @@ ENV/
 *.log
 screenshot_*.png
 demo.html
+modern_demo.html

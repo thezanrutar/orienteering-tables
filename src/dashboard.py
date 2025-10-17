@@ -19,57 +19,102 @@ class Dashboard(QtWidgets.QWidget):
     def setup_ui(self):
         """Setup the user interface."""
         layout = QtWidgets.QVBoxLayout(self)
-        layout.setContentsMargins(20, 20, 20, 20)
-        layout.setSpacing(15)
+        layout.setContentsMargins(30, 30, 30, 30)
+        layout.setSpacing(20)
         
         # Header with back button
         header_layout = QtWidgets.QHBoxLayout()
         
         back_button = QtWidgets.QPushButton("← Back")
+        back_button.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 8px;
+                padding: 8px 16px;
+                color: #e8eef5;
+                font-size: 13px;
+            }
+            QPushButton:hover {
+                background-color: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(100, 180, 255, 0.5);
+            }
+        """)
         back_button.clicked.connect(self.back_clicked.emit)
         header_layout.addWidget(back_button)
         
         header_layout.addStretch()
         layout.addLayout(header_layout)
         
-        # Competition title
+        # Competition title with icon
         self.title_label = QtWidgets.QLabel()
         title_font = self.title_label.font()
-        title_font.setPointSize(20)
+        title_font.setPointSize(24)
         title_font.setBold(True)
         self.title_label.setFont(title_font)
+        self.title_label.setStyleSheet("color: #64b4ff; margin-top: 10px;")
         layout.addWidget(self.title_label)
         
-        # Competition details
+        # Competition details in a frosty card
+        details_card = QtWidgets.QFrame()
+        details_card.setStyleSheet("""
+            QFrame {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(255, 255, 255, 0.12),
+                    stop:1 rgba(255, 255, 255, 0.08));
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 12px;
+                padding: 20px;
+            }
+        """)
+        details_layout = QtWidgets.QVBoxLayout(details_card)
+        
         self.details_label = QtWidgets.QLabel()
         self.details_label.setWordWrap(True)
-        layout.addWidget(self.details_label)
+        self.details_label.setStyleSheet("color: #e8eef5; font-size: 13px; line-height: 1.6;")
+        details_layout.addWidget(self.details_label)
         
-        # Separator
-        line = QtWidgets.QFrame()
-        line.setFrameShape(QtWidgets.QFrame.HLine)
-        line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        layout.addWidget(line)
+        layout.addWidget(details_card)
         
         # Teams section header
         teams_header_layout = QtWidgets.QHBoxLayout()
+        teams_header_layout.setContentsMargins(0, 10, 0, 0)
         
-        teams_label = QtWidgets.QLabel("Teams")
+        teams_label = QtWidgets.QLabel("👥 Teams")
         teams_font = teams_label.font()
-        teams_font.setPointSize(16)
+        teams_font.setPointSize(18)
         teams_font.setBold(True)
         teams_label.setFont(teams_font)
+        teams_label.setStyleSheet("color: #e8eef5;")
         teams_header_layout.addWidget(teams_label)
         
         teams_header_layout.addStretch()
         
         add_team_button = QtWidgets.QPushButton("+ Add Team")
+        add_team_button.setStyleSheet("""
+            QPushButton {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(100, 180, 255, 0.3),
+                    stop:1 rgba(100, 180, 255, 0.2));
+                border: 1px solid rgba(100, 180, 255, 0.5);
+                border-radius: 8px;
+                padding: 10px 20px;
+                color: #e8eef5;
+                font-weight: 600;
+                font-size: 13px;
+            }
+            QPushButton:hover {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(100, 180, 255, 0.4),
+                    stop:1 rgba(100, 180, 255, 0.3));
+            }
+        """)
         add_team_button.clicked.connect(self.add_team)
         teams_header_layout.addWidget(add_team_button)
         
         layout.addLayout(teams_header_layout)
         
-        # Teams table
+        # Teams table with modern styling
         self.teams_table = QtWidgets.QTableWidget()
         self.teams_table.setColumnCount(4)
         self.teams_table.setHorizontalHeaderLabels(["Team Name", "Category", "Members", "Leader"])
@@ -77,6 +122,36 @@ class Dashboard(QtWidgets.QWidget):
         self.teams_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.teams_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.teams_table.setAlternatingRowColors(True)
+        self.teams_table.setStyleSheet("""
+            QTableWidget {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(255, 255, 255, 0.08),
+                    stop:1 rgba(255, 255, 255, 0.05));
+                alternate-background-color: rgba(255, 255, 255, 0.1);
+                gridline-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 12px;
+                color: #e8eef5;
+            }
+            QTableWidget::item {
+                padding: 12px;
+                border: none;
+            }
+            QTableWidget::item:selected {
+                background-color: rgba(100, 180, 255, 0.3);
+            }
+            QHeaderView::section {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(255, 255, 255, 0.15),
+                    stop:1 rgba(255, 255, 255, 0.1));
+                color: #e8eef5;
+                padding: 12px;
+                border: none;
+                border-bottom: 2px solid rgba(100, 180, 255, 0.3);
+                font-weight: 600;
+                font-size: 13px;
+            }
+        """)
         layout.addWidget(self.teams_table)
     
     def load_data(self):

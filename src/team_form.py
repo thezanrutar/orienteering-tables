@@ -37,18 +37,25 @@ class TeamForm(QtWidgets.QDialog):
         self.show_step(0)
     
     def setup_ui(self):
-        """Setup the user interface."""
+        """Setup the user interface with modern dark theme."""
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #0f1a2e;
+            }
+        """)
+        
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(50, 50, 50, 50)
-        layout.setSpacing(20)
+        layout.setSpacing(30)
         
-        # Question label
+        # Question label with modern styling
         self.question_label = QtWidgets.QLabel()
         self.question_label.setWordWrap(True)
         font = self.question_label.font()
-        font.setPointSize(16)
+        font.setPointSize(18)
         font.setBold(True)
         self.question_label.setFont(font)
+        self.question_label.setStyleSheet("color: #e8eef5; margin-bottom: 10px;")
         layout.addWidget(self.question_label)
         
         # Stacked widget for different input types
