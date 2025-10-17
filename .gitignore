@@ -2,3 +2,16 @@
 .env/
 .DS_Store/
 .DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.db
+*.sqlite
+*.sqlite3
+.venv/
+venv/
+env/
+ENV/
+*.log
