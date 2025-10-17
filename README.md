@@ -23,7 +23,7 @@ Orienteering Tables is a desktop application built with PySide6 that allows user
 
 ## 📋 Requirements
 
-- Python 3.x
+- Python 3.8 or higher
 - PySide6 >= 6.0.0
 
 ## 🚀 Installation
