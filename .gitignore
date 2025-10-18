@@ -18,3 +18,5 @@ ENV/
 screenshot_*.png
 demo.html
 modern_demo.html
+working_demo.html
+screenshot_working*.png
