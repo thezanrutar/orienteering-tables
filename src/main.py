@@ -1,3 +1,6 @@
 import app
+import sys
+import os
 
-app.run_app()
+if __name__ == '__main__':
+    app.run_app()

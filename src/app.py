@@ -1,9 +1,18 @@
 from PySide6 import QtWidgets
 import sys
-import main_window
+from main_window import MainWindow
+import logic
 
 def run_app():
   app = QtWidgets.QApplication(sys.argv)
-  window = main_window.MainWindow()
+
+  app.setApplicationName("Orienteering Tables")
+  app.setOrganizationName("thezanrutar")
+  
+  app.setStyleSheet("""
+  """)
+
+  window = MainWindow()
   window.show()
-  app.exec()
+
+  sys.exit(app.exec())
