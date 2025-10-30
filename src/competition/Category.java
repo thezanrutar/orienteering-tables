@@ -8,6 +8,10 @@ public class Category {
   private int allowedTimeM;
   private int maxTimeM;
 
+  private static final float ALLOWED_TIME_RATIO = 1.5;
+  private static final float MAX_TIME_RATIO = 1.75;
+  private static final int ALLOWED_IDEAL_TIME_DEVIATION_M = 20;
+
   private static final HashMap<Character, Integer> RECOMMENDED_TIME_M =
     new HashMap<>();
   static {
@@ -24,15 +28,16 @@ public class Category {
     this.letter = letter;
   }
 
-  public int addIdealTimeM(int idealTimeM) {
+  public boolean setIdealTimeM(int idealTimeM) {
     this.idealTimeM = idealTimeM;
-    allowedTimeM = (int) Math.ceil(idealTimeM * 1.5);
-    maxTimeM = (int) Math.ceil(idealTimeM * 1.75);
+    allowedTimeM = (int) Math.ceil(idealTimeM * ALLOWED_TIME_RATIO);
+    maxTimeM = (int) Math.ceil(idealTimeM * MAX_TIME_RATIO);
 
-    if (Math.abs(RECOMMENDED_TIME_M.get(letter) - idealTimeM) >= 20) {
-      return 1;
+    if (Math.abs(RECOMMENDED_TIME_M.get(letter) - idealTimeM) >=
+        ALLOWED_IDEAL_TIME_DEVIATION_M) {
+      return false;
     } else {
-      return 0;
+      return true;
     }
   }
 
