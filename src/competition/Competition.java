@@ -14,11 +14,16 @@ public class Competition {
     this.title = title;
   }
 
-  public addCategory(Category category) {
+  public void addCategory(Category category) {
     categories.add(category);
   }
 
-  public addTeam(Team team, String name) {
-    allTeams.add(name, team);
+  public void addTeam(Team team, String name) {
+    if (allTeams.containsKey(name) {
+      return false;
+    } else {
+      allTeams.put(name, team);
+      return true;
+    }
   }
 }

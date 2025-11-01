@@ -14,8 +14,8 @@ public class Category {
   private int maxTimeM;
 
   private int examExerciseN;
-  private int liveCheckpointsN;
-  private int checkpointsN;
+  private int liveCheckpointN;
+  private int checkpointN;
 
   private static final float ALLOWED_TIME_RATIO = 1.5;
   private static final float MAX_TIME_RATIO = 1.75;
@@ -38,40 +38,47 @@ public class Category {
 
   public Category(char letter) { this.LETTER = letter; }
 
+  // Competition
+  public char getLetter() { return LETTER; }
   public boolean setIdealTimeM(int idealTimeM) {
     this.idealTimeM = idealTimeM;
     allowedTimeM = (int) Math.ceil(idealTimeM * ALLOWED_TIME_RATIO);
     maxTimeM = (int) Math.ceil(idealTimeM * MAX_TIME_RATIO);
-
     return Math.abs(RECOMMENDED_TIME_M.get(LETTER) - idealTimeM) <
-        ALLOWED_IDEAL_TIME_DEVIATION_M;
+      ALLOWED_IDEAL_TIME_DEVIATION_M;
   }
-
-  public boolean setExamExerciseN(int n) {
-    examExerciseN = n;
-    return true;
-  }
-
-  public
-
-  public boolean addTeam(Team team) {
-    String name = team.getName;
-    if (teams.containsKey(name) {
-      return false;
-    } else {
-      teams.add(name, team);
-      return true;
-    }
-  }
-
-  public int getIdealTimeM() { return idealTimeM; }
-  public int getAllowedTimeM() { return allowedTimeM; }
-  public int getMaxTimeM() { return maxTimeM; }
   public HashMap<Character, Integer> getRecommendedTimeM() {
     return RECOMMENDED_TIME_M;
   }
   public int getIdealTimeM() { return idealTimeM; }
   public int getAllowedTimeM() { return allowedTimeM; }
   public int getMaxTimeM() { return maxTimeM; }
-  public char getLetter() { return LETTER; }
+
+  // Teams
+  public boolean addTeam(Team team) {
+    String name = team.getName;
+    if (teams.containsKey(name) {
+      return false;
+    } else {
+      teams.put(name, team);
+      return true;
+    }
+  }
+  public Team getTeam(String name) { return teams[name]; }
+
+  // Checkpoints
+  public boolean setExamExerciseN(int n) {
+    examExerciseN = n;
+    return true;
+  }
+  public int getExamExerciseN() { return examExerciseN; }
+  public boolean setLiveCheckpointN(int n) {
+    liveCheckpointN = n;
+  }
+  public int getLiveCheckpointN() { return liveCheckpointN; }
+  public boolean setCheckpointN(int n) {
+    checkpointN = n;
+  }
+  public int getCheckpointN() { return checkpointN; }
 }
+
