@@ -1,55 +1,77 @@
 package competition;
 
+import competition.Team;
+
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Category {
-  private final char letter;
+  private final char LETTER;
+
   private int idealTimeM;
   private int allowedTimeM;
   private int maxTimeM;
+
+  private int examExerciseN;
+  private int liveCheckpointsN;
+  private int checkpointsN;
 
   private static final float ALLOWED_TIME_RATIO = 1.5;
   private static final float MAX_TIME_RATIO = 1.75;
   private static final int ALLOWED_IDEAL_TIME_DEVIATION_M = 20;
 
-  private static final HashMap<Character, Integer> RECOMMENDED_TIME_M =
-    new HashMap<>();
+  private static final Map<Character, Integer> RECOMMENDED_TIME_M;
   static {
-    RECOMMENDED_TIME_M.put('A', 120);
-    RECOMMENDED_TIME_M.put('B', 150);
-    RECOMMENDED_TIME_M.put('C', 180);
-    RECOMMENDED_TIME_M.put('D', 180);
-    RECOMMENDED_TIME_M.put('E', 150);
-    RECOMMENDED_TIME_M.put('F', 120);
-    RECOMMENDED_TIME_M.put('O', 150);
+    Map<Character, Integer> m = new HashMap<>();
+    m.put('A', 120);
+    m.put('B', 150);
+    m.put('C', 180);
+    m.put('D', 180);
+    m.put('E', 150);
+    m.put('F', 120);
+    m.put('O', 150);
+    RECOMMENDED_TIME_M = Collections.unmodifiableMap(m);
   }
 
-  public Category(char letter) {
-    this.letter = letter;
-  }
+  private final Map<String, Team> teams = new HashMap<>();
+
+  public Category(char letter) { this.LETTER = letter; }
 
   public boolean setIdealTimeM(int idealTimeM) {
     this.idealTimeM = idealTimeM;
     allowedTimeM = (int) Math.ceil(idealTimeM * ALLOWED_TIME_RATIO);
     maxTimeM = (int) Math.ceil(idealTimeM * MAX_TIME_RATIO);
 
-    if (Math.abs(RECOMMENDED_TIME_M.get(letter) - idealTimeM) >=
-        ALLOWED_IDEAL_TIME_DEVIATION_M) {
+    return Math.abs(RECOMMENDED_TIME_M.get(LETTER) - idealTimeM) <
+        ALLOWED_IDEAL_TIME_DEVIATION_M;
+  }
+
+  public boolean setExamExerciseN(int n) {
+    examExerciseN = n;
+    return true;
+  }
+
+  public
+
+  public boolean addTeam(Team team) {
+    String name = team.getName;
+    if (teams.containsKey(name) {
       return false;
     } else {
+      teams.add(name, team);
       return true;
     }
   }
 
-  public int getIdealTimeM() {
-    return idealTimeM;
+  public int getIdealTimeM() { return idealTimeM; }
+  public int getAllowedTimeM() { return allowedTimeM; }
+  public int getMaxTimeM() { return maxTimeM; }
+  public HashMap<Character, Integer> getRecommendedTimeM() {
+    return RECOMMENDED_TIME_M;
   }
-
-  public int getAllowedTimeM() {
-    return allowedTimeM;
-  }
-
-  public int getMaxTimeM() {
-    return maxTimeM;
-  }
+  public int getIdealTimeM() { return idealTimeM; }
+  public int getAllowedTimeM() { return allowedTimeM; }
+  public int getMaxTimeM() { return maxTimeM; }
+  public char getLetter() { return LETTER; }
 }
