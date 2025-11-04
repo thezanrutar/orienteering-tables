@@ -1,7 +1,5 @@
 package competition;
 
-import competition.Team;
-
 import java.util.*;
 
 public class Category {

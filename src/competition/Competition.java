@@ -1,8 +1,5 @@
 package competition;
 
-import competition.Category;
-import competition.Team;
-
 import java.util.*;
 
 public class Competition {
