@@ -2,9 +2,7 @@ package competition;
 
 import competition.Team;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Category {
   private final char LETTER;
