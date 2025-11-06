@@ -18,6 +18,7 @@ public class Team {
   private int women;
   private int children;
   private int elderly;
+
   private boolean firstAid;
   private boolean shoes;
   private boolean membership;
